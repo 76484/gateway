@@ -1,6 +1,6 @@
-const axios = require("axios");
+import axios from "axios";
 
-module.exports = {
+export default {
   getUsers: async (userIds) => {
     const { data: users } = await axios.get("http://localhost:3000/users", {
       params: {

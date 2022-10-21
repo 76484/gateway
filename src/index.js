@@ -1,5 +1,6 @@
-const express = require("express");
-const userService = require("./services/userService");
+import express from "express";
+
+import userService from "./services/userService";
 
 const app = express();
 const port = 3001;
