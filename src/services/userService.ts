@@ -1,7 +1,8 @@
 import axios from "axios";
 
-interface User {
+export interface User {
   userId: string;
+  libraryId: string;
   username: string;
 }
 
