@@ -1,7 +1,7 @@
 import express from "express";
 
 import userService from "./services/userService";
-import { transformUser } from "./transformers/user";
+import { transformUser } from "./transformers/userTransformer";
 
 const app = express();
 const port = 3001;

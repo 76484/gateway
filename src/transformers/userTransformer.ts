@@ -7,7 +7,7 @@ interface TransformedUser extends User {
 const transformUser = (user: User) => {
   return {
     ...user,
-    profileUrl: `https://www.example.com/${user.userId}`,
+    profileUrl: `https://www.example.com/profile/${user.userId}`,
   } as TransformedUser;
 };
 
