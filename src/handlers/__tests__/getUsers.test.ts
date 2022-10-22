@@ -1,14 +1,12 @@
 import type { Request, Response } from "express";
 
-import userService from "../../services/userService";
-import type { HttpError } from "../../services/userService";
+import { fetchUsers } from "../../services/userService";
+import { HttpError } from "../../utils/errors";
 import getUsers from "../getUsers";
 
 jest.mock("../../services/userService", () => ({
   __esModule: true,
-  default: {
-    getUsers: jest.fn(),
-  },
+  fetchUsers: jest.fn(),
 }));
 
 describe("transformerUser", () => {
@@ -20,7 +18,7 @@ describe("transformerUser", () => {
   } as unknown as Response;
 
   it("should call res.json with transformed users array", async () => {
-    (userService.getUsers as jest.MockedFunction<any>).mockResolvedValue([
+    (fetchUsers as jest.MockedFunction<any>).mockResolvedValue([
       {
         userId: "User3",
         libraryId: "Library1",
@@ -43,12 +41,8 @@ describe("transformerUser", () => {
   });
 
   it("should handle 500 error from user service", async () => {
-    // TODO: constructor for HttpError
-    const httpError = new Error("Failed to fetch users") as HttpError;
-    httpError.code = 500;
-
-    (userService.getUsers as jest.MockedFunction<any>).mockRejectedValue(
-      httpError
+    (fetchUsers as jest.MockedFunction<any>).mockRejectedValue(
+      new HttpError("Failed to fetch users")
     );
 
     await getUsers({} as Request, res);

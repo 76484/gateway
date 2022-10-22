@@ -1,6 +1,6 @@
 import nock from "nock";
 
-import userService from "../userService";
+import { fetchUsers } from "../userService";
 
 describe("getUsers", () => {
   it("should return the users from the api call", async () => {
@@ -19,7 +19,7 @@ describe("getUsers", () => {
         },
       ]);
 
-    expect(await userService.getUsers([])).toEqual([
+    expect(await fetchUsers([])).toEqual([
       {
         userId: "User1",
         libraryId: "Library1",
@@ -38,7 +38,7 @@ describe("getUsers", () => {
 
     expect.assertions(1);
 
-    return expect(userService.getUsers([])).rejects.toEqual(
+    return expect(fetchUsers([])).rejects.toEqual(
       expect.objectContaining({ code: 500 })
     );
   });
